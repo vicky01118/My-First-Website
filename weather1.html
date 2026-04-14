@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weather App</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+input {
+    padding: 8px;
+    margin: 5px;
+}
+button {
+    padding: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Weather App</h2>
+
+    <!-- City input -->
+    <input type="text" id="cityInput" placeholder="Enter City (e.g. Ranchi)"><br>
+
+    <!-- State input -->
+    <input type="text" id="stateInput" placeholder="Enter State (e.g. Jharkhand)"><br>
+
+    <button onclick="getWeather()">Search</button>
+
+    <h3 id="city"></h3>
+    <p id="temp"></p>
+    <p id="desc"></p>
+</div>
+
+<script>
+const apiKey = "YOUR_API_KEY_HERE";
+
+// Default load Ranchi, Jharkhand
+window.onload = function(){
+    getWeather("Ranchi", "Jharkhand");
+};
+
+async function getWeather(defaultCity, defaultState) {
+
+    let city = document.getElementById("cityInput").value;
+    let state = document.getElementById("stateInput").value;
+
+    if(defaultCity && defaultState){
+        city = defaultCity;
+        state = defaultState;
+    } 
+    else if(city === "" || state === ""){
+        alert("City aur State dono daalo");
+        return;
+    }
+
+    // 👇 important part (city + state + country)
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},IN&appid=${apiKey}&units=metric`;
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if(data.cod != 200){
+            alert("Location not found");
+            return;
+        }
+
+        document.getElementById("city").innerText = data.name + ", " + state;
+        document.getElementById("temp").innerText = "Temp: " + data.main.temp + "°C";
+        document.getElementById("desc").innerText = "Weather: " + data.weather[0].description;
+
+    } catch (err) {
+        alert("Error fetching weather");
+    }
+}
+</script>
+
+</body>
+</html>
