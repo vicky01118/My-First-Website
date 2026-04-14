@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Project</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to My Website 🚀</h1>
+    <p>Click the button to see magic 👇</p>
+
+    <button onclick="showMessage()">Click Me</button>
+
+    <div id="output"></div>
+
+    <script>
+        function showMessage() {
+            document.getElementById("output").innerHTML = "Hello! You clicked the button 😄";
+        }
+    </script>
+
+</body>
+</html>
